@@ -13,16 +13,20 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/SideBar.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-5">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-5 pb-3 pt-3">
             <div class="container">
-                <a asp-area="" asp-controller="" class="navbar-brand">
+                <a asp-area="" asp-page="/Index" class="navbar-brand" style="margin: -30px">
+                    @*<img src="~/Images/swordlogo.png" style="width:250px; height:150px" class="d-print-none d-sm-none d-md-block d-none mr-5" />*@
                     <img src="~/Images/collabbarLogo.png" style="width:230px; height:50px" class="d-print-none d-sm-none d-md-block d-none mr-5" />
+                    <img src="~/Images/chestIcon.png" style="width:65px; height:40px" class="d-print-none d-block d-sm-none mr-5 ml-5" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -31,29 +35,74 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
+                        @*<li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                            </li>*@
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">Games</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <div id="wrapper">
+        <div class="overlay"></div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - RGPGameApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <div class="sidebar-header">
+                    <div class="sidebar-brand">
+                        <a asp-area="" asp-page="/Index"><img src="~/Images/sidelogo.png" style="width:200px; height:50px;margin-top:-10px" class="ml-2 d-print-none d-sm-none d-md-block d-none mr-5" /></a>
+                    </div>
+                </div>
+                <li><a asp-area="" asp-page="/Index"><i class="fas fa-dice-d20 mr-1"></i>Games</a></li>
+                <li><a asp-area="" asp-page="/Characters"><i class="fas fa-users mr-1"></i>Characters</a></li>
+                @*<li class="dropdown">
+                <a href="#works" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
+                <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                    <div class="dropdown-header">Dropdown heading</div>
+                    <li><a href="#pictures">Pictures</a></li>
+                    <li><a href="#videos">Videeos</a></li>
+                    <li><a href="#books">Books</a></li>
+                    <li><a href="#art">Art</a></li>
+                    <li><a href="#awards">Awards</a></li>
+                </ul>
+                 </li>*@
+                <li><a asp-area="" asp-page="/Contact"><i class="far fa-envelope mr-1"></i>Contact</a></li>
+                @*<li><a href="#followme">Follow me</a></li>*@
+            </ul>
+            <footer class="border-top footer text-muted">
+                <img class="ml-1 mr-5 text-center" src="~/Images/closelogo.png" style="height:60px; width:150px" />
+            </footer>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+                <partial name="_CookieConsentPartial" />
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-    </footer>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+   
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            <img class="mr-1" src="~/Images/closelogo.png" style="height:60px; width:150px" /> &copy; 2019
+        </div>
+    </footer>*@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -74,6 +123,7 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/SideBar.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
